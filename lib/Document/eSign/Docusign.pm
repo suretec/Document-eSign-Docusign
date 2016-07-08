@@ -14,7 +14,7 @@ Version 0.03
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.02';
 our @apicalls = qw{
     login                           updatePassword
     getToken                        getTokenOnBehalfOf
@@ -73,7 +73,7 @@ Example:
     use Document::eSign::Docusign;
 
     my $ds = Document::eSign::Docusign->new(
-        baseUrl => 'https://demo.docusign.com/',
+        baseUrl => 'https://demo.docusign.net/restapi',
         username => 'username@domain.com',
         password => 'yourloginpassword',
         integratorkey => 'yourintegratorkeyfromdocusign'
@@ -94,7 +94,7 @@ Example:
             ]
         },
         templateId => 'templateId',
-        templateRoles [
+        templateRoles => [
             {
                 roleName     => 'Signer1', # Description of the signer's role
                 name => 'Jane Smith',
@@ -126,7 +126,7 @@ Should be set to your username for Docusign
 
 =head3 baseUrl
 
-Should be set to https://demo.docusign.com at a minimum. Ultimately will be
+Should be set to https://demo.docusign.net/restapi at a minimum. Ultimately will be
 overwritten after login. The login call specifies the baseUrl that becomes the
 default.
 

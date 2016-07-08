@@ -12,7 +12,7 @@ is vanilla perl. Where possible I've kept reliance on modules to those
 that are generally in the core distribution on most Linux distributions.
 
 This module will be perl's interface to the JSON/REST API that DS 
-provides. If you need a primer, consider visiting http://demo.docusign.com.
+provides. If you need a primer, consider visiting http://demo.docusign.net.
 
 INSTALLATION
 

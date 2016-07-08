@@ -1,8 +1,12 @@
 Revision history for Document-eSign-Docusign
+0.03    2015-02-18 20:57 AM GMT
+    * Fixed barewords in Makefile.PL - https://rt.cpan.org/Ticket/Display.html?id=102175
+    * Updated docs - https://rt.cpan.org/Public/Bug/Display.html?id=102176
+
 0.02    2013-09-08 08:38 AM PST
-	Issues with Test::Pod::Coverage, Makefile.PL, and MANIFEST 
-	addressed.
+    * Issues with Test::Pod::Coverage, Makefile.PL, and MANIFEST 
+      addressed.
         
 0.01    Date/time
-        First version, released on an unsuspecting world.
+    * First version, released on an unsuspecting world.
 
