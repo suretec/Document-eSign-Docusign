@@ -102,7 +102,10 @@ EOF
     elsif ($method eq 'POST' ) {
         
         $response = $ua->post($uri, Content => $multipart || $jsonparams || $params );
-        
+        print '$multipart is: ' . Dumper $multipart, "\n"; 
+        print '$jsonparams is: ' . Dumper $jsonparams, "\n"; 
+        print '$params is: ' . Dumper $params, "\n"; 
+            
     }
     elsif ($method eq 'PUT' ) {
                 
