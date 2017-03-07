@@ -4,6 +4,7 @@ use warnings;
 use JSON;
 use LWP::UserAgent;
 use HTTP::Headers;
+use URI;
 use Carp;
 use Data::Dumper;
 
@@ -24,44 +25,48 @@ Handles communication with the Docusign API. Behavior adapts according to what i
 =cut
 
 sub new {
-    carp ("Got send request: " . Dumper(@_)) if $_[1]->debug;
-    my $class = shift;
-    my $main = shift;
-    my $method = shift;
-    my $contenttype = shift;
-    my $credentials = shift;
-    my $uri = shift;
-    my $params = shift;
-    
+    carp( "Got send request: " . Dumper(@_) ) if $_[1]->debug;
+    my $class        = shift;
+    my $main         = shift;
+    my $method       = shift;
+    my $contenttype  = shift;
+    my $credentials  = shift;
+    my $uri          = shift;
+    my $params       = shift;
+    my $query_params = shift;
+
     my $self = bless {}, $class;
-    
+
     my $ua = LWP::UserAgent->new(
-        default_headers =>
-            HTTP::Headers->new(
-                'X-DocuSign-Authentication' => $credentials,
-                Accept => 'application/json',
-            ),
+        default_headers => HTTP::Headers->new(
+            'X-DocuSign-Authentication' => $credentials,
+            Accept                      => 'application/json',
+        ),
     );
-    
-  $ua->add_handler("request_send",  sub { shift->dump; return })
-    if $main->debug;
-    
-  $ua->add_handler("response_done", sub { shift->dump; return })
-    if $main->debug;
-  
+
+    $ua->add_handler( "request_send", sub { shift->dump; return } )
+      if $main->debug;
+
+    $ua->add_handler( "response_done", sub { shift->dump; return } )
+      if $main->debug;
+
     $ua->env_proxy();
-    
-    $ua->default_header('Content-Type' => $contenttype)
-            if defined $contenttype;
-            
-    my ($response, $jsonparams, $multipart);
+
+    $ua->default_header( 'Content-Type' => $contenttype )
+      if defined $contenttype;
+
+    my ( $response, $jsonparams, $multipart );
     my $json = JSON->new->allow_nonref;
-    
-    if (defined $params && defined $contenttype && $contenttype =~ /json|multipart/i ) {
+
+    if (   defined $params
+        && defined $contenttype
+        && $contenttype =~ /json|multipart/i )
+    {
         $jsonparams = $json->encode($params);
     }
-    
-    if (defined $contenttype && $contenttype =~ /multipart/i) { #This shit is ugly, I am ashamed XXX
+
+    if ( defined $contenttype && $contenttype =~ /multipart/i )
+    {    #This shit is ugly, I am ashamed XXX
         $multipart = <<"EOF";
 
 
@@ -71,9 +76,11 @@ Content-Disposition: form-data
 
 $jsonparams
 EOF
-        if (defined $params->{documents}) {
-            for my $doc ( @{$params->{documents}} ) {
-                open(my $fh, "<", $doc->{name}) or croak("Unable to open file: " . $doc->{name} . " :: " . $!);
+        if ( defined $params->{documents} ) {
+            for my $doc ( @{ $params->{documents} } ) {
+                open( my $fh, "<", $doc->{name} )
+                  or
+                  croak( "Unable to open file: " . $doc->{name} . " :: " . $! );
                 $doc->{name} =~ s/^.*(\\|\/)//;
                 local $/ = '';
                 my $pdf = <$fh>;
@@ -91,44 +98,52 @@ EOF
 
 EOF
         }
-        
+
     }
-    
-    
-    if ($method eq 'GET') {
-        $response = $ua->get($uri);
-        
+
+    if ( $method eq 'GET' ) {
+
+        if ( defined $query_params ) {
+            my $uri_with_params = URI->new($uri);
+            $uri_with_params->query_form($query_params);
+            $response = $ua->get($uri_with_params);
+        }
+        else {
+            $response = $ua->get($uri);
+        }
+
     }
-    elsif ($method eq 'POST' ) {
-        
-        $response = $ua->post($uri, Content => $multipart || $jsonparams || $params );
-        print '$multipart is: ' . Dumper $multipart, "\n"; 
-        print '$jsonparams is: ' . Dumper $jsonparams, "\n"; 
-        print '$params is: ' . Dumper $params, "\n"; 
-            
+    elsif ( $method eq 'POST' ) {
+
+        $response =
+          $ua->post( $uri, Content => $multipart || $jsonparams || $params );
+
     }
-    elsif ($method eq 'PUT' ) {
-                
-        $response = $ua->put($uri, Content => $multipart || $jsonparams || $params );
-                
+    elsif ( $method eq 'PUT' ) {
+
+        $response =
+          $ua->put( $uri, Content => $multipart || $jsonparams || $params );
+
     }
-    elsif ($method eq 'DELETE' ) {
-        $response = $ua->delete($uri);            
+    elsif ( $method eq 'DELETE' ) {
+        $response = $ua->delete($uri);
     }
     else {
-        return { error => "An undefined method was used, only use GET, POST, PUT, or DELETE"};
+        return { error =>
+              "An undefined method was used, only use GET, POST, PUT, or DELETE"
+        };
     }
-    
-    if ( $method =~ /GET|POST/ && $response->is_success ) {    
-        return $json->decode($response->decoded_content);
+
+    if ( $method =~ /GET|POST/ && $response->is_success ) {
+        return $json->decode( $response->decoded_content );
     }
-    elsif ( $response->is_success ) { #Calls that simply do something and are not expected to return data.
+    elsif ( $response->is_success )
+    {    #Calls that simply do something and are not expected to return data.
         return { Status => $response->status_line };
     }
-    
-    return { error => $response->status_line };
-    
-}
 
+    return { error => $response->status_line };
+
+}
 
 1;

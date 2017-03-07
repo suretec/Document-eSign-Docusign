@@ -10,11 +10,11 @@ Document::eSign::Docusign - Provides an interface for Perl to the Docusign REST 
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 our @apicalls = qw{
     login                           updatePassword
     getToken                        getTokenOnBehalfOf
@@ -26,6 +26,7 @@ our @apicalls = qw{
     openDocusignRecipientView       getStatusSinceDate
     getStatusSinceDateUsingChangeType getStatusRangeDateUsingChangeType
     getSearchFolders                getEnvelope
+    getListOfEnvelopesInFolders
     getEnvelopeRecipients           addEnvelopeRecipients
     editEnvelopeRecipients          deleteEnvelopeRecipient
     getRecipientTabs                createRecipientTabs
@@ -189,12 +190,13 @@ from the webservice. Calls that are not yet implemented are marked with a *.
     getStatusSinceDateUsingChangeType*
     getStatusRangeDateUsingChangeType*
     getSearchFolders*
+    getListOfEnvelopesInFolders
     getEnvelope*
     getEnvelopeRecipients*
     addEnvelopeRecipients*
     editEnvelopeRecipients*
     deleteEnvelopeRecipient*
-    getRecipientTabs*
+    getRecipientTabs
     createRecipientTabs*
     modifyExistingRecipientTabs*
     getEnvelopeAssets*
@@ -314,7 +316,8 @@ sub AUTOLOAD {
 
 =head1 AUTHOR
 
-Tyler Hardison, C<< <tyler at seraph-net.net> >>
+ Tyler Hardison, <tyler at seraph-net.net>
+ Gavin Henry, <ghenry at surevoip.co.uk>, Suretec Systems Ltd. T/A SureVoIP.
 
 =head1 BUGS
 
@@ -360,7 +363,8 @@ L<http://search.cpan.org/dist/Document-eSign-Docusign/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013 Tyler Hardison.
+ Copyright 2013 Tyler Hardison.
+ Copyright 2017 Gavin Henry, Suretec Systems Ltd. T/A SureVoIP.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a

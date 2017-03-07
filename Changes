@@ -1,5 +1,8 @@
 Revision history for Document-eSign-Docusign
-0.03    2015-02-18 20:57 AM GMT
+0.04    2017-03-06 16:16 GMT
+    * Added 
+
+0.03    2015-02-18 20:57 GMT
     * Fixed barewords in Makefile.PL - https://rt.cpan.org/Ticket/Display.html?id=102175
     * Updated docs - https://rt.cpan.org/Public/Bug/Display.html?id=102176
 
