@@ -1,6 +1,9 @@
 Revision history for Document-eSign-Docusign
 0.04    2017-03-06 16:16 GMT
-    * Added 
+    * Added getListOfEnvelopesInFolders, getEnvelopeRecipients, getRecipientTabs. This
+      allows someone to search in any folder, i.e. completed, then get all those envelopes
+      and recipients, then get all the Tabs to retrieve the data they entered. My use case
+      is completed Direct Debit signup forms in the UK for SureVoIP - https://surevoip.co.uk
 
 0.03    2015-02-18 20:57 GMT
     * Fixed barewords in Makefile.PL - https://rt.cpan.org/Ticket/Display.html?id=102175
