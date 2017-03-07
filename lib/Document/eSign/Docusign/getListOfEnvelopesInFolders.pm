@@ -43,10 +43,11 @@ https://www.docusign.com/p/RESTAPIGuide/RESTAPIGuide.htm#REST%20API%20References
 =cut
 
 sub new {
-    carp( "Got recipient tabs request: " . Dumper(@_) ) if $_[1]->debug;
+    carp( "Got get List Of Envelopes In Folders request: " . Dumper(@_) ) if $_[1]->debug;
     my $class = shift;
     my $main  = shift;
     my $vars  = shift;
+    my $query_params = shift;
 
     my $self = bless {}, $class;
 
@@ -55,7 +56,7 @@ sub new {
     my $creds = $main->buildCredentials();
 
     my $response =
-      $main->sendRequest( 'GET', undef, $creds, $main->baseUrl . $uri, $vars );
+      $main->sendRequest( 'GET', undef, $creds, $main->baseUrl . $uri, $vars, $query_params );
 
     return $response;
 }

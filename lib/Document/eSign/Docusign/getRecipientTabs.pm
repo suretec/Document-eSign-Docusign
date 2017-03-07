@@ -6,7 +6,7 @@ use Data::Dumper;
 
 =head1 NAME
 
-Document::eSign::Docusign::getRecipientTabs - This retrieves information abotu the tabs associated with a recipient
+Document::eSign::Docusign::getRecipientTabs - This retrieves information about the tabs associated with a recipien
 
 =head1 VERSION
 
@@ -22,31 +22,36 @@ Basic Example:
     my $response = $ds->getRecipientTabs(
         {
             accountId => $ds->accountid,
-            envelopeId => 'Hello Signer World!',
-            recipientId => 'GUID-OF-TEMPLATE-FROM-TEMPLATES',
+            envelopeId => '1883aef4-82fe-4c36-a9ec-13dd63520df9',
+            recipientId => '1',
         }
     );
     
-    print "Got envelopeId: " . $response->{envelopeId} . "\n";
+    print "Got Tabs: " . $response->{Tabs} . "\n";
     
 =cut
 
 sub new {
-    carp("Got recipient tabs request: " . Dumper(@_)) if $_[1]->debug;
+    carp( "Got recipient tabs request: " . Dumper(@_) ) if $_[1]->debug;
     my $class = shift;
-    my $main = shift;
-    my $vars = shift;
-    
+    my $main  = shift;
+    my $vars  = shift;
+
     my $self = bless {}, $class;
-    
-    my $uri = qq{/envelopes/$vars->envelopeId/recipients/$vars->recipientId/tabs};
-        
+
+    my $uri =
+        q{/envelopes/}
+      . $vars->{envelopeId}
+      . q{/recipients/}
+      . $vars->{recipientId}
+      . q{/tabs};
+
     my $creds = $main->buildCredentials();
-    
-    my $response = $main->sendRequest('GET', undef, $creds, $main->baseUrl . $uri, $vars);
-    
+
+    my $response =
+      $main->sendRequest( 'GET', undef, $creds, $main->baseUrl . $uri, $vars );
+
     return $response;
 }
-
 
 1;

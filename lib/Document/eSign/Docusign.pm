@@ -192,7 +192,7 @@ from the webservice. Calls that are not yet implemented are marked with a *.
     getSearchFolders*
     getListOfEnvelopesInFolders
     getEnvelope*
-    getEnvelopeRecipients*
+    getEnvelopeRecipients
     addEnvelopeRecipients*
     editEnvelopeRecipients*
     deleteEnvelopeRecipient*
