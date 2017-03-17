@@ -1,4 +1,6 @@
 Revision history for Document-eSign-Docusign
+0.05    2017-03-17 11:54 GMT
+    * Build was missing new classes listed in 0.0.4.
 0.04    2017-03-06 16:16 GMT
     * Added getListOfEnvelopesInFolders, getEnvelopeRecipients, getRecipientTabs. This
       allows someone to search in any folder, i.e. completed, then get all those envelopes

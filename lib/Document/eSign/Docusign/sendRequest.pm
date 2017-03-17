@@ -18,7 +18,7 @@ Version 0.02
 
 =head1 functions
 
-=head2 new($method, $contenttype, $credentials, $uri, $params)
+=head2 new($method, $contenttype, $credentials, $uri, $params, $query_params)
 
 Handles communication with the Docusign API. Behavior adapts according to what is requested by a particular call.
 

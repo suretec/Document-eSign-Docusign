@@ -24,6 +24,8 @@ Basic Example:
         {
             accountId           => $ds->accountid, # Required
             search_folder       => 'completed', # Required
+        },
+        {
             start_position      => {integer}, 
             count               => {integer}
             from_date           => {date/time}, 
