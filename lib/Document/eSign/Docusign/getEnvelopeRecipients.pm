@@ -18,7 +18,6 @@ Version 0.04
 
 =head2 getEnvelopeRecipients($parent, $vars)
 
-Basic Example:
     my $response = $ds->getEnvelopeRecipients(
         {
             accountId => $ds->accountid,

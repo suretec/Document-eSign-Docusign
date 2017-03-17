@@ -18,7 +18,6 @@ Version 0.02
 
 =head2 changeEnvelopeStatus($hashref)
 
-Basic Example:
     my $response = $ds->changeEnvelopeStatus(
         {
             accountId => $ds->accountid,

@@ -18,8 +18,6 @@ Version 0.02
 
 =head2 getToken($varshashref)
 
-Example:
-
     my $response = $ds->getToken(
         {
             grant_type => 'password', # only option

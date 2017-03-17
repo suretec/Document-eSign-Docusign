@@ -18,8 +18,6 @@ Version 0.02
 
 =head2 revokeToken($varshashref)
 
-Example:
-
     my $response = $ds->revokeToken(
         {
             token => 'tokenstring'

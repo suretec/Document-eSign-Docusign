@@ -20,8 +20,6 @@ Version 0.02
 
 Depending on the account settings, you may be required to supply 0 - 3 question and answer pairs.
 
-Example:
-
     my $response = $ds->updatePassword(
         {
             currentPassword => 'OldUserPassword',

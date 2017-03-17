@@ -19,7 +19,6 @@ Version 0.04
 
 =head2 getListOfEnvelopesInFolders($parent, $vars)
 
-Basic Example:
     my $response = $ds->getListOfEnvelopesInFolders(
         {
             accountId           => $ds->accountid, # Required

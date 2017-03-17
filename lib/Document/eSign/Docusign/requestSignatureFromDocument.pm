@@ -26,8 +26,6 @@ be faster. (Not to mention a better presentation to the end signer.) The precedi
 path to the documents will be stripped and docusign will only receive the resulting
 filename.
 
-Basic Example:
-
     my $response = $ds->requestSignatureFromTemplate(
         {
             emailSubject => 'Hello Signer World!',

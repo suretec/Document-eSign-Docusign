@@ -18,7 +18,6 @@ Version 0.02
 
 =head2 requestSignatureFromTemplate($parent, $vars)
 
-Basic Example:
     my $response = $ds->requestSignatureFromTemplate(
         {
             accountId => $ds->accountid,
